@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROsDataManager", "ROsDataMa
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "ROsData", "ROsData\ROsData.sqlproj", "{8FE16FCD-55F9-4650-96E0-C1459818806C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ROsWPFUserInterface", "ROsWPFUserInterface\ROsWPFUserInterface.csproj", "{0A56D71A-D1B1-4C60-AF9F-BD783492A873}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -23,6 +25,10 @@ Global
 		{8FE16FCD-55F9-4650-96E0-C1459818806C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8FE16FCD-55F9-4650-96E0-C1459818806C}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8FE16FCD-55F9-4650-96E0-C1459818806C}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0A56D71A-D1B1-4C60-AF9F-BD783492A873}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0A56D71A-D1B1-4C60-AF9F-BD783492A873}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0A56D71A-D1B1-4C60-AF9F-BD783492A873}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0A56D71A-D1B1-4C60-AF9F-BD783492A873}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
