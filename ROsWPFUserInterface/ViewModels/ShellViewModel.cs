@@ -8,5 +8,7 @@ namespace ROsWPFUserInterface.ViewModels
 {
     public class ShellViewModel
     {
+
+
     }
 }
