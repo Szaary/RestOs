@@ -1,3 +1,5 @@
 # RestOs
 Restaurant Management System
-Michał Karcz
+
+
+Learning course project with @IAmTimCorey
