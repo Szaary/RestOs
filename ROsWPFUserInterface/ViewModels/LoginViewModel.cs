@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using ROsWPFUserInterface.Helpers;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -12,6 +13,12 @@ namespace ROsWPFUserInterface.ViewModels
     {
 		private string _userName;
 		private string _password;
+		private IAPIHelper _apiHelper;  
+
+		public LoginViewModel(IAPIHelper apiHelper)
+		{
+			_apiHelper = apiHelper;
+		}
 
 		public string UserName
 		{
@@ -44,24 +51,24 @@ namespace ROsWPFUserInterface.ViewModels
 			{
 				bool output = false;
 
-				if (UserName?.Length > 0 && Password?.Length > 0)
-				{
-					output = true;
-				}
-
+				if (UserName?.Length > 0 && Password?.Length > 0) output = true;
 				return output;
 			}
 
 		}
 
-		public void LogIn()
+		public async Task LogIn()
 		{
+			try
+			{
+				var result = await _apiHelper.Authenticate(UserName, Password);
+			}
+			catch (Exception ex)
+			{
+				// Exception if login credidentials are wrong
+				Console.WriteLine(ex.Message);
+			}
 
 		}
-
-
-
-
-
 	}
 }

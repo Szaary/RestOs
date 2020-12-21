@@ -6,7 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-
+/// <summary>
+/// Stack overflow solution for Password not working with PropertyChanged
+/// </summary>
 namespace ROsWPFUserInterface.Helpers
 {
     public static class PasswordBoxHelper
@@ -33,9 +35,7 @@ namespace ROsWPFUserInterface.Helpers
 
         public static void SetBoundPassword(DependencyObject d, string value)
         {
-            if (string.Equals(value, GetBoundPassword(d)))
-                return; // and this is how we prevent infinite recursion
-
+            if (string.Equals(value, GetBoundPassword(d))) return; // and this is how we prevent infinite recursion
             d.SetValue(BoundPasswordProperty, value);
         }
 
@@ -44,19 +44,14 @@ namespace ROsWPFUserInterface.Helpers
             DependencyPropertyChangedEventArgs e)
         {
             var box = d as PasswordBox;
-
-            if (box == null)
-                return;
-
+            if (box == null) return;
             box.Password = GetBoundPassword(d);
         }
 
         private static void PasswordChanged(object sender, RoutedEventArgs e)
         {
             PasswordBox password = sender as PasswordBox;
-
             SetBoundPassword(password, password.Password);
-
             // set cursor past the last character in the password box
             password.GetType().GetMethod("Select", BindingFlags.Instance | BindingFlags.NonPublic).Invoke(password, new object[] { password.Password.Length, 0 });
         }

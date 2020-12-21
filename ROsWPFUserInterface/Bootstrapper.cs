@@ -27,10 +27,11 @@ namespace ROsWPFUserInterface
         protected override void Configure() // Configuration of container
         {
             _container.Instance(_container);
-
+            
             _container
                 .Singleton<IWindowManager, WindowManager>()
-                .Singleton<IEventAggregator, EventAggregator>();
+                .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<IAPIHelper, APIHelper>();
             
             GetType().Assembly.GetTypes()
                 .Where(type => type.IsClass)
@@ -38,6 +39,8 @@ namespace ROsWPFUserInterface
                 .ToList()
                 .ForEach(viewModelType => _container.RegisterPerRequest(
                     viewModelType, viewModelType.ToString(), viewModelType));
+
+
         }
         
         protected override void OnStartup(object sender, StartupEventArgs e)  // Override startup methods
