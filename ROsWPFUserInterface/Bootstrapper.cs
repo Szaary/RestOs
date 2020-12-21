@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using ROsWPFUserInterface.Helpers;
 using ROsWPFUserInterface.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -6,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 
 namespace ROsWPFUserInterface
 {
@@ -15,8 +17,14 @@ namespace ROsWPFUserInterface
         public Bootstrapper()
         {
             Initialize();
+
+
+            ConventionManager.AddElementConvention<PasswordBox>(
+            PasswordBoxHelper.BoundPasswordProperty,
+            "Password",
+            "PasswordChanged");
         }
-        protected override void Configure()
+        protected override void Configure() // Configuration of container
         {
             _container.Instance(_container);
 
@@ -31,20 +39,20 @@ namespace ROsWPFUserInterface
                 .ForEach(viewModelType => _container.RegisterPerRequest(
                     viewModelType, viewModelType.ToString(), viewModelType));
         }
-
-        protected override void OnStartup(object sender, StartupEventArgs e)
+        
+        protected override void OnStartup(object sender, StartupEventArgs e)  // Override startup methods
         {
             DisplayRootViewFor<ShellViewModel>();
         }
-        protected override object GetInstance(Type service, string key)
+        protected override object GetInstance(Type service, string key) // Override startup methods
         {
             return _container.GetInstance(service, key);
         }
-        protected override IEnumerable<object> GetAllInstances(Type service)
+        protected override IEnumerable<object> GetAllInstances(Type service)    // Override startup methods
         {
             return _container.GetAllInstances(service);
         }
-        protected override void BuildUp(object instance)
+        protected override void BuildUp(object instance)    // Override startup methods
         {
             _container.BuildUp(instance);
         }
