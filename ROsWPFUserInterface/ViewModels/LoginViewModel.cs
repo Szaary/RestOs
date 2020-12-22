@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using ROsWPFUserInterface.Helpers;
+using ROsWPFUserInterface.Library.Api;
 using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
@@ -92,6 +93,9 @@ namespace ROsWPFUserInterface.ViewModels
 			{
 				ErrorMessage = "";
 				var result = await _apiHelper.Authenticate(UserName, Password);
+
+				// Capture more information about the user
+				await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 			}
 			catch (Exception ex)
 			{

@@ -1,5 +1,6 @@
 ﻿using Caliburn.Micro;
 using ROsWPFUserInterface.Helpers;
+using ROsWPFUserInterface.Library.Api;
 using ROsWPFUserInterface.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,7 @@ namespace ROsWPFUserInterface
             _container
                 .Singleton<IWindowManager, WindowManager>()
                 .Singleton<IEventAggregator, EventAggregator>()
+                .Singleton<ILoggedInUserModel, LoggedInUserModel>()
                 .Singleton<IAPIHelper, APIHelper>();
             
             GetType().Assembly.GetTypes()
