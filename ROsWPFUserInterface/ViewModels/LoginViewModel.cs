@@ -1,4 +1,5 @@
 ﻿using Caliburn.Micro;
+using ROsWPFUserInterface.EventModels;
 using ROsWPFUserInterface.Helpers;
 using ROsWPFUserInterface.Library.Api;
 using System;
@@ -14,12 +15,16 @@ namespace ROsWPFUserInterface.ViewModels
     {
 		private string _userName;
 		private string _password;
-		private IAPIHelper _apiHelper;  
+		private IAPIHelper _apiHelper;
+		private IEventAggregator _events;
 
-		public LoginViewModel(IAPIHelper apiHelper)
+
+		public LoginViewModel(IAPIHelper apiHelper, IEventAggregator events)
 		{
 			_apiHelper = apiHelper;
+			_events = events;
 		}
+
 
 		public string UserName
 		{
@@ -32,7 +37,6 @@ namespace ROsWPFUserInterface.ViewModels
 				NotifyOfPropertyChange(() => CanLogIn);
 			}
 		}
-
 		public string Password
 		{
 			get { return _password; }
@@ -56,7 +60,6 @@ namespace ROsWPFUserInterface.ViewModels
 			}			
 		}
 		private string _errorMessage;
-
 		public string ErrorMessage
 		{
 			get { return _errorMessage; }
@@ -67,11 +70,6 @@ namespace ROsWPFUserInterface.ViewModels
 				NotifyOfPropertyChange(() => ErrorMessage);
 			}
 		}
-
-
-
-
-
 
 
 		public bool CanLogIn
@@ -86,7 +84,6 @@ namespace ROsWPFUserInterface.ViewModels
 			}
 
 		}
-
 		public async Task LogIn()
 		{
 			try
@@ -94,12 +91,15 @@ namespace ROsWPFUserInterface.ViewModels
 				ErrorMessage = "";
 				var result = await _apiHelper.Authenticate(UserName, Password);
 
-				// Capture more information about the user
+				
 				await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
+
+				_events.PublishOnUIThread(new LogOnEvent());
+
 			}
 			catch (Exception ex)
 			{
-				// Exception if login credidentials are wrong
+				
 				ErrorMessage = ex.Message;
 			}
 
