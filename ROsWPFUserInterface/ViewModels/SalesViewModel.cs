@@ -138,7 +138,6 @@ namespace ROsWPFUserInterface.ViewModels
 				.Where(x => x.Product.IsTaxable)
 				.Sum(x => x.Product.RetailPrice * x.QuantityInCart * taxRate);
 
-
 			return taxAmount;
 		}
 

@@ -36,7 +36,19 @@
                  MinHeight="80" MinWidth="150" SelectedItem="{Binding SelectedProduct}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
-                   <TextBlock Text="{Binding ProductName}"/>
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="{Binding ProductName}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="Price: " FontSize="9"/>
+                                <TextBlock Text="{Binding RetailPrice, StringFormat='{}{0:0.00}'}" FontSize="9"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="5 0 0 0 ">
+                                <TextBlock Text="Quantity: " FontSize="9"/>
+                                <TextBlock Text="{Binding QuantityInStock, StringFormat='{}{0:0.00}'}" FontSize="9"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>   
             
