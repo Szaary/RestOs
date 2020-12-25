@@ -26,8 +26,6 @@
             Login Form
         </TextBlock>
 
-
-
         <!--- User name row -->
         <TextBlock Grid.Row="1" Grid.Column="1" Margin="0 0 5 10">
             Username:
@@ -45,6 +43,7 @@
                 HorizontalAlignment="Center" x:Name="LogIn">
             Log In
         </Button>
+        
         <!--- Error Message Row-->
         <TextBlock x:Name="ErrorMessage" Grid.ColumnSpan="2" Visibility="{Binding IsErrorVisible, Converter={StaticResource BooleanToVisibilityConverter}, FallbackValue=Collapsed}" 
                    Margin="0 20 00 20" Grid.Row="4" Grid.Column="1" Foreground="Red" MaxWidth="220"

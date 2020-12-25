@@ -1,4 +1,6 @@
 ﻿using Caliburn.Micro;
+using ROsWPFUserInterface.Library.Api;
+using ROsWPFUserInterface.Library.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,10 +11,35 @@ using System.Threading.Tasks;
 namespace ROsWPFUserInterface.ViewModels
 {
     public class SalesViewModel : Screen
-    {
+	{ 
+
+		IProductEndpoint _productEndpoint;
+
+		public SalesViewModel(IProductEndpoint productEndpoint)
+		{
+			_productEndpoint = productEndpoint;
+		}
+
+
+		/// <summary>
+		/// Override OnViewLoaded
+		/// </summary>
+		/// <param name="view"></param>
+		protected override async void OnViewLoaded(object view)
+		{
+			base.OnViewLoaded(view);
+			await LoadProducts();
+		}
+
+		private async Task LoadProducts()
+		{
+			var productList = await _productEndpoint.GetAll();
+			Products = new BindingList<ProductModel>(productList);
+		}
 		
-		private BindingList<string> _products;
-		public BindingList<string> Products
+
+		private BindingList<ProductModel> _products;
+		public BindingList<ProductModel> Products
 		{
 			get { return _products; }
 			set
@@ -24,8 +51,8 @@ namespace ROsWPFUserInterface.ViewModels
 		}
 
 
-		private BindingList<string> _cart;
-		public BindingList<string> Cart
+		private BindingList<ProductModel> _cart;
+		public BindingList<ProductModel> Cart
 		{
 			get { return _cart; }
 			set
