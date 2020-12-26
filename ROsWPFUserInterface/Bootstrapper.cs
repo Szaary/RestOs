@@ -1,7 +1,10 @@
-﻿using Caliburn.Micro;
+﻿using AutoMapper;
+using Caliburn.Micro;
 using ROsWPFUserInterface.Helpers;
 using ROsWPFUserInterface.Library.Api;
 using ROsWPFUserInterface.Library.Helpers;
+using ROsWPFUserInterface.Library.Models;
+using ROsWPFUserInterface.Models;
 using ROsWPFUserInterface.ViewModels;
 using System;
 using System.Collections.Generic;
@@ -26,8 +29,24 @@ namespace ROsWPFUserInterface
             "Password",
             "PasswordChanged");
         }
+        private IMapper ConfigureAutomapper()
+        {
+            var config = new MapperConfiguration(cfg =>
+            {
+                cfg.CreateMap<ProductModel, ProductDisplayModel>();
+                cfg.CreateMap<CartItemModel, CartItemDisplayModel>();
+
+            });
+            var output = config.CreateMapper();
+            return output;
+        }
+
+
         protected override void Configure() // Configuration of container
         {
+
+            _container.Instance(ConfigureAutomapper());
+
             _container.Instance(_container)
                 .PerRequest<IProductEndpoint, ProductEndpoint>()
                 .PerRequest<ISaleEndPoint, SaleEndPoint>();

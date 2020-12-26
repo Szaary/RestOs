@@ -1,7 +1,9 @@
-﻿using Caliburn.Micro;
+﻿using AutoMapper;
+using Caliburn.Micro;
 using ROsWPFUserInterface.Library.Api;
 using ROsWPFUserInterface.Library.Helpers;
 using ROsWPFUserInterface.Library.Models;
+using ROsWPFUserInterface.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,12 +19,14 @@ namespace ROsWPFUserInterface.ViewModels
 		IProductEndpoint _productEndpoint;
 		IConfigHelper _configHelper;
 		ISaleEndPoint _saleEndPoint;
+		IMapper _mapper;
 
-		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper, ISaleEndPoint saleEndPoint)
+		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper, ISaleEndPoint saleEndPoint, IMapper mapper)
 		{
 			_productEndpoint = productEndpoint;
 			_configHelper = configHelper;
 			_saleEndPoint = saleEndPoint;
+			_mapper = mapper;
 		}
 
 
@@ -39,12 +43,19 @@ namespace ROsWPFUserInterface.ViewModels
 		private async Task LoadProducts()
 		{
 			var productList = await _productEndpoint.GetAll();
-			Products = new BindingList<ProductModel>(productList);
+
+
+			// Automapper - need to check up
+			var products = _mapper.Map<List<ProductDisplayModel>>(productList);
+
+
+
+			Products = new BindingList<ProductDisplayModel>(products);
 		}
 		
 
-		private BindingList<ProductModel> _products;
-		public BindingList<ProductModel> Products
+		private BindingList<ProductDisplayModel> _products;
+		public BindingList<ProductDisplayModel> Products
 		{
 			get { return _products; }
 			set
@@ -56,8 +67,8 @@ namespace ROsWPFUserInterface.ViewModels
 		}
 
 
-		private BindingList<CartItemModel> _cart = new BindingList<CartItemModel>();
-		public BindingList<CartItemModel> Cart
+		private BindingList<CartItemDisplayModel> _cart = new BindingList<CartItemDisplayModel>();
+		public BindingList<CartItemDisplayModel> Cart
 		{
 			get { return _cart; }
 			set
@@ -68,9 +79,9 @@ namespace ROsWPFUserInterface.ViewModels
 		}
 
 
-		private ProductModel _selectedProduct;
+		private ProductDisplayModel _selectedProduct;
 
-		public ProductModel SelectedProduct
+		public ProductDisplayModel SelectedProduct
 		{
 			get { return _selectedProduct; }
 			set
@@ -161,20 +172,15 @@ namespace ROsWPFUserInterface.ViewModels
 		}
 		public void AddToCart()
 		{
-			CartItemModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
+			CartItemDisplayModel existingItem = Cart.FirstOrDefault(x => x.Product == SelectedProduct);
 
 			if(existingItem != null)
 			{
 				existingItem.QuantityInCart += ItemQuantity;
-
-
-				// not the best way to modify list in cart
-				Cart.Remove(existingItem);
-				Cart.Add(existingItem);
 			}
 			else
 			{
-				CartItemModel item = new CartItemModel
+				CartItemDisplayModel item = new CartItemDisplayModel
 				{
 					Product = SelectedProduct,
 					QuantityInCart = ItemQuantity

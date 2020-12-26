@@ -10,13 +10,5 @@ namespace ROsWPFUserInterface.Library.Models
     {
         public ProductModel Product { get; set; }
         public int QuantityInCart;
-        public string DisplayText
-        {
-            get
-            {
-                return $"{ Product.ProductName} ({QuantityInCart})";
-            }
-        }
-
     }
 }
