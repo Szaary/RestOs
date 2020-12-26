@@ -29,7 +29,8 @@ namespace ROsWPFUserInterface
         protected override void Configure() // Configuration of container
         {
             _container.Instance(_container)
-                .PerRequest<IProductEndpoint, ProductEndpoint>();
+                .PerRequest<IProductEndpoint, ProductEndpoint>()
+                .PerRequest<ISaleEndPoint, SaleEndPoint>();
             
             _container
                 .Singleton<IWindowManager, WindowManager>()

@@ -5,12 +5,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ROsWPFUserInterface.Library.Helpers
+namespace ROsDataManager.Library
 {
-    public class ConfigHelper : IConfigHelper
+    public class ConfigHelper
     {
         // TODO MOVE THIS FROM CONFIG TO THE API
-        public decimal GetTaxRate()
+        public static decimal GetTaxRate()
         {
             string rateText = ConfigurationManager.AppSettings["taxRate"];
 

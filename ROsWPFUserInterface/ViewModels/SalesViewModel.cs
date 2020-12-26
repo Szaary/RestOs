@@ -16,11 +16,13 @@ namespace ROsWPFUserInterface.ViewModels
 
 		IProductEndpoint _productEndpoint;
 		IConfigHelper _configHelper;
+		ISaleEndPoint _saleEndPoint;
 
-		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper)
+		public SalesViewModel(IProductEndpoint productEndpoint, IConfigHelper configHelper, ISaleEndPoint saleEndPoint)
 		{
 			_productEndpoint = productEndpoint;
 			_configHelper = configHelper;
+			_saleEndPoint = saleEndPoint;
 		}
 
 
@@ -185,6 +187,7 @@ namespace ROsWPFUserInterface.ViewModels
 			NotifyOfPropertyChange(() => SubTotal);
 			NotifyOfPropertyChange(() => Tax);
 			NotifyOfPropertyChange(() => Total);
+			NotifyOfPropertyChange(() => CanCheckOut);
 		}
 
 
@@ -205,6 +208,7 @@ namespace ROsWPFUserInterface.ViewModels
 			NotifyOfPropertyChange(() => SubTotal);
 			NotifyOfPropertyChange(() => Tax);
 			NotifyOfPropertyChange(() => Total);
+			NotifyOfPropertyChange(() => CanCheckOut);
 		}
 
 
@@ -215,14 +219,29 @@ namespace ROsWPFUserInterface.ViewModels
 			{
 				bool output = false;
 				// Make sure something is in the cart
+				if (Cart.Count > 0)
+				{
+					output = true; 
+				}
 
 				return output;
 			}
 
 		}
-		public void CheckOut()
+		public async Task CheckOut()
 		{
-
+			//Create sale mdel and post to api
+			SaleModel sale = new SaleModel();
+			foreach (var item in Cart)
+			{
+				sale.SaleDetails.Add(new SaleDetailModel
+				{
+					ProductId = item.Product.Id,
+					Quantity = item.QuantityInCart
+				});
+				
+			}
+			await _saleEndPoint.PostSale(sale);
 		}
 
 	}

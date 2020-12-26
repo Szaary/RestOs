@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Linq;
+using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -13,8 +14,8 @@ namespace ROsWPFUserInterface.ViewModels
 {
     public class LoginViewModel : Screen
     {
-		private string _userName;
-		private string _password;
+		private string _userName = "mk.michalkarcz@gmail.com";
+		private string _password = "Haslo321@";
 		private IAPIHelper _apiHelper;
 		private IEventAggregator _events;
 
