@@ -52,6 +52,21 @@ namespace ROsWPFUserInterface.ViewModels
 
 			Products = new BindingList<ProductDisplayModel>(products);
 		}
+
+		private async Task ResetSalesViewModel()
+		{
+			Cart = new BindingList<CartItemDisplayModel>();
+			// Add clearing a selected cart item if does not it itself
+			await LoadProducts();
+
+
+			NotifyOfPropertyChange(() => SubTotal);
+			NotifyOfPropertyChange(() => Tax);
+			NotifyOfPropertyChange(() => Total);
+			NotifyOfPropertyChange(() => CanCheckOut);
+
+
+		}
 		
 
 		private BindingList<ProductDisplayModel> _products;
@@ -215,8 +230,11 @@ namespace ROsWPFUserInterface.ViewModels
 			get
 			{
 				bool output = false;
-				if (SelectedCartItem != null && SelectedCartItem?.Product.QuantityInStock >0)
+				if (SelectedCartItem != null && SelectedCartItem?.QuantityInCart > 0)
+				{
 					output = true;
+					
+				}
 
 				return output;
 			}
@@ -241,6 +259,7 @@ namespace ROsWPFUserInterface.ViewModels
 			NotifyOfPropertyChange(() => Tax);
 			NotifyOfPropertyChange(() => Total);
 			NotifyOfPropertyChange(() => CanCheckOut);
+			NotifyOfPropertyChange(() => CanAddToCart);
 		}
 
 
@@ -271,9 +290,13 @@ namespace ROsWPFUserInterface.ViewModels
 					ProductId = item.Product.Id,
 					Quantity = item.QuantityInCart
 				});
+
 				
 			}
 			await _saleEndPoint.PostSale(sale);
+
+			await ResetSalesViewModel();
+			// ADD EXCEPTION HANDLING
 		}
 
 	}

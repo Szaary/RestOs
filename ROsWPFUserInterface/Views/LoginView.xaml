@@ -40,7 +40,7 @@
 
         <!-- Login row-->
         <Button Grid.Column="1" Grid.Row="3" Grid.ColumnSpan="2" Padding="90 5"
-                HorizontalAlignment="Center" x:Name="LogIn">
+                HorizontalAlignment="Center" x:Name="LogIn" IsDefault="True">
             Log In
         </Button>
         

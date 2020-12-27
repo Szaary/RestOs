@@ -18,6 +18,7 @@ namespace ROsDataManager.Controllers
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData();
+
             string userId = RequestContext.Principal.Identity.GetUserId();
 
             data.SaveSale(sale, userId);
