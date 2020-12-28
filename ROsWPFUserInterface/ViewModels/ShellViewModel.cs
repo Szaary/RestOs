@@ -14,13 +14,16 @@ namespace ROsWPFUserInterface.ViewModels
         private IEventAggregator _events;
         private SalesViewModel _salesViewModel;
         private ILoggedInUserModel _user;
+        private IAPIHelper _apiHelper;
 
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesViewModel, ILoggedInUserModel user)
+        public ShellViewModel(IEventAggregator events, SalesViewModel salesViewModel, ILoggedInUserModel user, IAPIHelper apiHelper)
         {
             _events = events;
             _salesViewModel = salesViewModel;
             _user = user;
-            
+            _apiHelper = apiHelper;
+
+
             _events.Subscribe(this);           
             ActivateItem(IoC.Get<LoginViewModel>());
         }
@@ -48,7 +51,10 @@ namespace ROsWPFUserInterface.ViewModels
 
         public void LogOut()
         {
-            _user.LogOffUser();
+            _user.ResetUserModel();
+            _apiHelper.LogOffUser();
+
+
             ActivateItem(IoC.Get<LoginViewModel>());
             NotifyOfPropertyChange(() => IsLoggedIn);
         }
