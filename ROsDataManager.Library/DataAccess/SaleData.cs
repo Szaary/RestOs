@@ -57,21 +57,42 @@ namespace ROsDataManager.Library.DataAccess
             sale.Total = sale.SubTotal + sale.Tax;
 
 
-            // Save the sale model
-            SqlDataAccess sql = new SqlDataAccess();
-            sql.SaveData("dbo.spSaleInsert", sale, "ROsData");
 
-            // get id
-            sale.Id = sql.LoadData<int, dynamic>("spSaleLookup", new { sale.CashierId, sale.SaleDate }, "ROsData").FirstOrDefault();
-
-            // finish filling in the sale detali model
-            foreach(var item in details)
+            
+            using(SqlDataAccess sql = new SqlDataAccess())
             {
-                item.SaleId = sale.Id;
-                sql.SaveData("dbo.spSaleDetailInsert", item, "ROsData");
-                
+                try
+                {
+                    sql.StartTranaction("ROsData");
+
+                    // Save the sale model
+                    sql.SaveDataInTransaction("dbo.spSaleInsert", sale);
+
+
+                    // Get Id from sale mode
+                    sale.Id = sql.LoadDataInTransaction<int, dynamic>("spSaleLookup", new { sale.CashierId, sale.SaleDate }).FirstOrDefault();
+
+                    // finish filling in the sale detali model
+                    foreach (var item in details)
+                    {
+                        item.SaleId = sale.Id;
+
+                        // save the sale detail models
+                        sql.SaveDataInTransaction("dbo.spSaleDetailInsert", item);
+
+                    }
+
+
+                    sql.CommitTranaction(); //- using statement should do it 
+                }
+                catch
+                {
+                    sql.RollbackTranaction();
+                    throw;
+                }
             }
-            // save the sale detail models
+            
+
         }
     }
 }
