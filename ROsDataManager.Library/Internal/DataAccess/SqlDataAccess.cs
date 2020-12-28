@@ -22,6 +22,13 @@ namespace ROsDataManager.Library.Internal.DataAccess
         }
 
 
+
+        /// <summary>
+        /// Save/Load data without transactions.
+        /// </summary>
+
+
+
         public List<T> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName)
         {
             string connectionString = GetConnectionString(connectionStringName);
@@ -48,12 +55,13 @@ namespace ROsDataManager.Library.Internal.DataAccess
 
 
 
-
-
-        /// Open/close connection for transaction
+        /// <summary>
+        /// Save load data with transactions - use only when necessary.
+        /// </summary>
 
         private IDbConnection _connection;
         private IDbTransaction _transaction;
+        private bool isClosed = false;
 
         public void StartTranaction(string connectionStringName)
         {
@@ -61,23 +69,38 @@ namespace ROsDataManager.Library.Internal.DataAccess
             _connection = new SqlConnection(connectionString);
             _connection.Open();
             _transaction = _connection.BeginTransaction();
+            isClosed = false;
         }  
 
         public void CommitTranaction()
         {
             _transaction?.Commit();
             _connection?.Close();
+            isClosed = true;
 
         }
         public void RollbackTranaction()
         {
             _transaction?.Rollback();
             _connection?.Close();
+            isClosed = true;
         }
 
         public void Dispose()
         {
-            CommitTranaction();        
+            if (isClosed == false)
+            {
+                try
+                {
+                    CommitTranaction();
+                }
+                catch
+                {
+                    // Todo - Log this issue
+                }
+            }
+            _transaction = null;
+            _connection = null;
         }
 
 

@@ -83,7 +83,7 @@ namespace ROsDataManager.Library.DataAccess
                     }
 
 
-                    sql.CommitTranaction(); //- using statement should do it 
+                    sql.CommitTranaction(); 
                 }
                 catch
                 {
