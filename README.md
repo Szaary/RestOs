@@ -1,5 +1,4 @@
 # RestOs
 Restaurant Management System
 
-
-Learning course project with @IAmTimCorey
+Based on learning course project with @IAmTimCorey
