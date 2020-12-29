@@ -26,6 +26,7 @@ namespace ROsWPFUserInterface.Models
         }
 
         public bool IsTaxable { get; set; }
+        public int ProductType { get; set; }
 
 
         public event PropertyChangedEventHandler PropertyChanged;

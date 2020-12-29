@@ -60,8 +60,10 @@
   <ItemGroup>
     <Compile Include="ConfigHelper.cs" />
     <Compile Include="DataAccess\ProductData.cs" />
+    <Compile Include="DataAccess\ProductTypeData.cs" />
     <Compile Include="DataAccess\SaleData.cs" />
     <Compile Include="Models\ProductModel.cs" />
+    <Compile Include="Models\ProductTypeModel.cs" />
     <Compile Include="Models\SaleDBModel.cs" />
     <Compile Include="Models\SaleDetailDBModel.cs" />
     <Compile Include="Models\SaleDetailModel.cs" />
