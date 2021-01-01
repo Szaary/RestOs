@@ -27,6 +27,8 @@ namespace ROsWPFUserInterface.ViewModels
             _events.Subscribe(this);           
             ActivateItem(IoC.Get<LoginViewModel>());
         }
+
+
         public bool IsLoggedIn
         {
             get

@@ -23,5 +23,6 @@ namespace ROsWPFUserInterface.Views
         {
             InitializeComponent();
         }
+
     }
 }

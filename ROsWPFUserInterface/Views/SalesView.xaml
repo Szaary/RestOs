@@ -8,6 +8,7 @@
              d:DesignHeight="550" d:DesignWidth="1000">
     <Grid>
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -15,6 +16,7 @@
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -27,13 +29,13 @@
         </Grid.RowDefinitions>
 
         <!-- Header -->
-        <TextBlock Text="Sales Page" FontSize="30" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Margin="0 0 20 0"/>
+        <TextBlock Text="Sales Page" FontSize="30" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="3" Margin="0 0 20 0"/>
 
         <!-- Column 0-->
-        <TextBlock Text="Items" Grid.Row="1" Grid.Column="0"/>
+        <TextBlock Text="Items" Grid.Row="2" Grid.Column="1"/>
 
-        <ListBox x:Name="Products" Grid.Row="2" Grid.Column="0"
-                 MinHeight="80" MinWidth="150" SelectedItem="{Binding SelectedProduct}">
+        <ListBox x:Name="Products" Grid.Row="3" Grid.Column="1"
+                 MinHeight="80" MinWidth="250" SelectedItem="{Binding SelectedProduct}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Orientation="Vertical">
@@ -50,11 +52,11 @@
                         </StackPanel>
                     </StackPanel>
                 </DataTemplate>
-            </ListBox.ItemTemplate>   
-            
+            </ListBox.ItemTemplate>
+
         </ListBox>
         <!-- Column 1-->
-        <StackPanel Orientation="Vertical" Grid.Column="1" Grid.Row="2"  Margin="20 0">
+        <StackPanel Orientation="Vertical" Grid.Column="2" Grid.Row="3"  Margin="20 0">
             <TextBlock Text="Quantity"/>
             <TextBox x:Name="ItemQuantity" MinWidth="100" Margin="0 0 0 10"/>
             <Button x:Name="AddToCart" Content="Add to Cart" Margin="0 0 0 30" Padding="5"/>
@@ -63,9 +65,9 @@
 
 
         <!-- Column 2-->
-        <TextBlock Text="Cart" Grid.Row="1" Grid.Column="2"/>
-        <ListBox x:Name="Cart" Grid.Row="2" Grid.Column="2"
-                 MinHeight="80" MinWidth="150"  SelectedItem="{Binding SelectedCartItem}">
+        <TextBlock Text="Cart" Grid.Row="2" Grid.Column="3"/>
+        <ListBox x:Name="Cart" Grid.Row="3" Grid.Column="3"
+                 MinHeight="80" MinWidth="250" SelectedItem="{Binding SelectedCartItem}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <TextBlock Text="{Binding DisplayText}"/>
@@ -74,22 +76,22 @@
 
         </ListBox>
 
-        <DockPanel Grid.Row="3" Grid.Column="2" >
+        <DockPanel Grid.Row="4" Grid.Column="3" >
             <TextBlock Text="SubTotal: " Margin="0 0 15 0" TextAlignment="Right"/>
             <TextBlock x:Name="SubTotal" Text="0.00" TextAlignment="Right"/>
         </DockPanel>
 
-        <DockPanel Grid.Row="4" Grid.Column="2" >
+        <DockPanel Grid.Row="5" Grid.Column="3" >
             <TextBlock Text="Tax: " TextAlignment="Right"/>
             <TextBlock x:Name="Tax" Text="0.00" TextAlignment="Right"/>
         </DockPanel>
 
-        <DockPanel Grid.Row="5" Grid.Column="2" >
+        <DockPanel Grid.Row="6" Grid.Column="3" >
             <TextBlock Text="Total: " TextAlignment="Right"/>
             <TextBlock x:Name="Total" Text="0.00" TextAlignment="Right"/>
         </DockPanel>
 
-        <Button x:Name="CheckOut" Grid.Column="2" Grid.Row="6" Content="Check Out" Margin="0 20 0 0" Padding="5"/>
+        <Button x:Name="CheckOut" Grid.Column="3" Grid.Row="7" Content="Check Out" Margin="0 20 0 0" Padding="5"/>
         <!-- Column 0-->
 
     </Grid>
