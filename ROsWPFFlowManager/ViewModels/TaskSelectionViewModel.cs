@@ -10,6 +10,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.ComponentModel;
 using ROsWPFFlowManager.Models;
+using ROsWPFFlowManager.EventModels;
+using ROsWPFFlowManager.Views;
 
 namespace ROsWPFFlowManager.ViewModels
 {
@@ -18,15 +20,17 @@ namespace ROsWPFFlowManager.ViewModels
     public class TaskSelectionViewModel : Screen
     {
 
-		IConfigHelper _configHelper;
-		IMapper _mapper;
-		IProductTypeEndpoint _productTypeEndpoint;
+		private IConfigHelper _configHelper;
+		private IMapper _mapper;
+		private IProductTypeEndpoint _productTypeEndpoint;
+		private IEventAggregator _events;
 
-		public TaskSelectionViewModel(IProductTypeEndpoint productTypeEndpoint, IConfigHelper configHelper, IMapper mapper)
+		public TaskSelectionViewModel(IProductTypeEndpoint productTypeEndpoint, IConfigHelper configHelper, IMapper mapper, IEventAggregator events)
 		{
 			_configHelper = configHelper;
 			_mapper = mapper;
 			_productTypeEndpoint = productTypeEndpoint;
+			_events = events;
 		}
 
 		protected override async void OnViewLoaded(object view)
@@ -94,7 +98,11 @@ namespace ROsWPFFlowManager.ViewModels
 
 		public void SelectThisTasks()
 		{
-			Console.WriteLine();
+			TypeSelectedEvent typeSelectedEvent = new TypeSelectedEvent();
+			typeSelectedEvent.SelectedItem = _selectedProductType.Id;
+			_events.PublishOnUIThread(new LogOnEvent());
+			_events.PublishOnUIThread(typeSelectedEvent);
+
 		}
 
 

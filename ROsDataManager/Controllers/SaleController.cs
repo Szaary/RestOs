@@ -14,6 +14,8 @@ namespace ROsDataManager.Controllers
     [Authorize]
     public class SaleController : ApiController
     {
+        TaskModel _taskModel;
+
 
         public void Post(SaleModel sale)
         {
@@ -21,9 +23,13 @@ namespace ROsDataManager.Controllers
 
             string userId = RequestContext.Principal.Identity.GetUserId();
 
-            data.SaveSale(sale, userId);
+            _taskModel = data.SaveSale(sale, userId);
         }
 
+        public TaskModel Get()
+        {
+            return _taskModel;
+        }
 
     }
 }

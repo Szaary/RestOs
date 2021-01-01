@@ -61,9 +61,13 @@
     <Folder Include="dbo\Views" />
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="PublishLocations" />
+    <Folder Include="dbo\Inserts" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ROsData.publish.xml" />
+    <None Include="dbo\Inserts\InsertProduct.sql" />
+    <None Include="dbo\Inserts\insertInventory.sql" />
+    <None Include="dbo\Inserts\insertSale.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\User.sql" />
@@ -79,6 +83,11 @@
     <Build Include="dbo\Tables\SaleDetail.sql" />
     <Build Include="dbo\Tables\ProductType.sql" />
     <Build Include="dbo\Stored Procedures\spProductTypeGetAll.sql" />
+    <Build Include="dbo\Tables\Task.sql" />
+    <None Include="dbo\Inserts\insertUser.sql" />
+    <None Include="dbo\Inserts\InsertSaleDetail.sql" />
+    <None Include="dbo\Inserts\InsertTask.sql" />
+    <Build Include="dbo\Stored Procedures\spTaskInsert.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="ROsData.refactorlog" />

@@ -38,7 +38,7 @@ namespace ROsWPFFlowManager
             var config = new MapperConfiguration(cfg =>
             {
                 cfg.CreateMap<ProductTypeModel, ProductTypeDisplayModel>();
-                //cfg.CreateMap<CartItemModel, CartItemDisplayModel>();
+             //   cfg.CreateMap<TaskModel, TaskDisplayModel>();
 
             });
             var output = config.CreateMapper();
@@ -50,7 +50,8 @@ namespace ROsWPFFlowManager
             _container.Instance(ConfigureAutomapper());
 
             _container.Instance(_container)
-                .PerRequest<IProductTypeEndpoint, ProductTypeEndpoint>();
+                .PerRequest<IProductTypeEndpoint, ProductTypeEndpoint>()
+                .PerRequest<ITaskEndpoint, TaskEndpoint>();
 
             _container
                 .Singleton<IWindowManager, WindowManager>()

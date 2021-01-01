@@ -11,17 +11,20 @@ namespace ROsWPFFlowManager.ViewModels
 {
     public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
     {
+        
         private IEventAggregator _events;
         private TaskSelectionViewModel _taskSelectionViewModel;
+        private TaskViewModel _taskViewModel;
         private ILoggedInUserModel _user;
         private IAPIHelper _apiHelper;
 
-        public ShellViewModel(IEventAggregator events, TaskSelectionViewModel taskSelectionViewModel, ILoggedInUserModel user, IAPIHelper apiHelper)
+        public ShellViewModel(IEventAggregator events, TaskSelectionViewModel taskSelectionViewModel, ILoggedInUserModel user, IAPIHelper apiHelper, TaskViewModel taskViewModel)
         {
             _events = events;
             _taskSelectionViewModel = taskSelectionViewModel;
             _user = user;
             _apiHelper = apiHelper;
+            _taskViewModel = taskViewModel;
 
 
             _events.Subscribe(this);
@@ -40,7 +43,11 @@ namespace ROsWPFFlowManager.ViewModels
 
         public void Handle(LogOnEvent message)
         {
-            ActivateItem(_taskSelectionViewModel);
+            if(_taskSelectionViewModel.IsActive==false)
+                ActivateItem(_taskSelectionViewModel);
+            else ActivateItem(_taskViewModel);
+
+
             NotifyOfPropertyChange(() => IsLoggedIn);
         }
 

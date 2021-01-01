@@ -16,5 +16,8 @@ namespace ROsDataManager.Controllers
             ProductTypeData data = new ProductTypeData();
             return data.GetProductTypes();
         }
+
+
+
     }
 }
