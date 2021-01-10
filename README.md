@@ -3,13 +3,14 @@ Restaurant Management System
 
 Writen in c#
 Based on learning course project with @IAmTimCorey
+
 On Gnu licence
 
 Written by: Michał Karcz
 
 
 Used Technologies:
-- Dependency Injection
+- Dependency Injection and containers
 - Wpf
 - Asp.Net MVC - (Model-View-Controller)
 - MVVM - (Model-View-ViewModel)
