@@ -14,7 +14,6 @@ Written by: Michał Karcz
 Used Technologies:
 - Dependency Injection and containers
 - Wpf
-- Asp.Net MVC - (Model-View-Controller)
 - MVVM - (Model-View-ViewModel)
 . Git
 - Design Patterns
