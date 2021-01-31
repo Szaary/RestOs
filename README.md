@@ -3,6 +3,7 @@ Restaurant Management System
 
 Writen in c#
 Based on learning course project with @IAmTimCorey
+
 Project used in learning course Advanced Programing - Wroclaw University of Economics and Business
 
 On Gnu licence
