@@ -95,7 +95,7 @@ namespace ROsDataManager.Library.DataAccess
 
         }
 
-        public List<SaleReportModel> GetSaleReport()
+        public List<SaleReportModel> GetSalesReport()
         {
             SqlDataAccess sql = new SqlDataAccess();
             var output = sql.LoadData<SaleReportModel, dynamic>("dbo.spSaleSaleReport", new { }, "ROsData");

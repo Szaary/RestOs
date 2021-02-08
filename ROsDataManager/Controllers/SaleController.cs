@@ -18,12 +18,15 @@ namespace ROsDataManager.Controllers
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData();
-
             string userId = RequestContext.Principal.Identity.GetUserId();
-
             data.SaveSale(sale, userId);
         }
 
-
+        [Route("GetSalesReport")]
+        public List<SaleReportModel> GetSalesReports()
+        {
+            SaleData data = new SaleData();
+            return data.GetSalesReport();
+        }
     }
 }

@@ -5,4 +5,4 @@ begin
 	select [Id], [ProductId], [Quantity], [PurchasePrice], [PurchaseDate] 
 	 from Inventory;
 end
-RETURN 0
+
