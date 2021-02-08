@@ -11,8 +11,7 @@ namespace ROsDataManager.Controllers
 {
     [Authorize(Roles ="Cashier")]         // Example, how to add custom roles for users
     public class ProductController : ApiController
-    {
-        
+    { 
         public List<ProductModel> Get()
         {
             ProductData data = new ProductData();
