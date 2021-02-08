@@ -9,7 +9,7 @@ using System.Web.Http;
 
 namespace ROsDataManager.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Cashier")]         // Example, how to add custom roles for users
     public class ProductController : ApiController
     {
         

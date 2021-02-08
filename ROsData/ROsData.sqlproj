@@ -61,9 +61,11 @@
     <Folder Include="dbo\Views" />
     <Folder Include="dbo\Stored Procedures" />
     <Folder Include="PublishLocations" />
+    <Folder Include="dbo\CreateDatabaseQueries" />
   </ItemGroup>
   <ItemGroup>
     <None Include="PublishLocations\ROsData.publish.xml" />
+    <None Include="dbo\CreateDatabaseQueries\AddingRoles.sql" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="dbo\Tables\User.sql" />

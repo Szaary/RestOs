@@ -14,7 +14,7 @@ namespace ROsDataManager.Controllers
     [Authorize]
     public class SaleController : ApiController
     {
-
+        [Authorize(Roles = "Cashier")]
         public void Post(SaleModel sale)
         {
             SaleData data = new SaleData();
@@ -22,9 +22,22 @@ namespace ROsDataManager.Controllers
             data.SaveSale(sale, userId);
         }
 
+        [Authorize(Roles = "Admin,Manager")]
         [Route("GetSalesReport")]
         public List<SaleReportModel> GetSalesReports()
         {
+
+            // Different options by role 
+            //if (RequestContext.Principal.IsInRole("Admin"))
+            //{
+            //    // Do admin stuff
+            //}
+            //else if (RequestContext.Principal.IsInRole("Manager"))
+            //{
+            //    // Do manager stuff
+            //}
+            
+                
             SaleData data = new SaleData();
             return data.GetSalesReport();
         }

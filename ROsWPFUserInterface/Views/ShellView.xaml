@@ -6,27 +6,8 @@
         xmlns:local="clr-namespace:ROsWPFUserInterface.Views"
         mc:Ignorable="d"
         Title="ShellView" Height="600" Width="800"
-        AllowsTransparency="True" WindowStyle="None"  Opacity="0.87" 
-        MouseLeftButtonDown="WindowMouseLeftButtonDown"
-        
+        AllowsTransparency="True" WindowStyle="None"  Opacity="0.87"         
         >
-
-    <!--       Change it later for something better - not best solution #stackoverflow         -->
-    <x:Code>
-        <![CDATA[            
-        private void WindowMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            DragMove();
-        }
-    ]]>
-    </x:Code>
-    <!--       Change it later for something better - not best solution #stackoverflow         -->
-
-
-
-
-
-
 
     <DockPanel>
         <Menu DockPanel.Dock="Top" FontSize="18">
