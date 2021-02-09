@@ -39,6 +39,10 @@ namespace ROsWPFUserInterface.ViewModels
             }
         }
 
+        public void UserManagement()
+        {
+            ActivateItem(IoC.Get<UserDisplayViewModel>());           
+        }
 
         public void Handle(LogOnEvent message)
         {

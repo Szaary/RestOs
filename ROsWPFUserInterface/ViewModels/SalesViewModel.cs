@@ -53,8 +53,7 @@ namespace ROsWPFUserInterface.ViewModels
 				settings.Title = "System Error";
 
 				// var info = IoC.Get<StatusInfoViewModel>(); if you want more than one popup
-
-				if (ex.Message == "Unauthorized")
+			if (ex.Message == "Unauthorized")
 				{
 					_status.UpdateMessage("Unauthorized Acccess", "You do not have permission to interact with the Sales Form");
 					_window.ShowDialog(_status, null, settings);
@@ -64,25 +63,19 @@ namespace ROsWPFUserInterface.ViewModels
 					_status.UpdateMessage("Fatal Exception", ex.Message);
 					_window.ShowDialog(_status, null, settings);
 				}
-
 				TryClose();
 			}
 		}
 
+
 		private async Task LoadProducts()
 		{
 			var productList = await _productEndpoint.GetAll();
-
-
-			// Automapper - need to check up
-
 			// Mapping Model from User interface Display model, to product model from api endopoint. They are different: notify or property change etc.
 			var products = _mapper.Map<List<ProductDisplayModel>>(productList);
-
-
-
 			Products = new BindingList<ProductDisplayModel>(products);
 		}
+	
 
 		private async Task ResetSalesViewModel()
 		{
