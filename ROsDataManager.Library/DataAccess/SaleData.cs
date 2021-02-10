@@ -1,4 +1,5 @@
-﻿using ROsDataManager.Library.Internal.DataAccess;
+﻿using Microsoft.Extensions.Configuration;
+using ROsDataManager.Library.Internal.DataAccess;
 using ROsDataManager.Library.Models;
 using System;
 using System.Collections.Generic;
@@ -12,10 +13,17 @@ namespace ROsDataManager.Library.DataAccess
 {
     public class SaleData
     {
+        private readonly IConfiguration _config;
+
+        public SaleData(IConfiguration config)
+        {
+            _config = config;
+        }
+
         public void SaveSale(SaleModel saleInfo, string cashierId)
         {
             List<SaleDetailDBModel> details = new List<SaleDetailDBModel>();
-            ProductData products = new ProductData();
+            ProductData products = new ProductData(_config);
 
             var taxRate = ConfigHelper.GetTaxRate()/100;
 
@@ -59,7 +67,7 @@ namespace ROsDataManager.Library.DataAccess
 
 
             
-            using(SqlDataAccess sql = new SqlDataAccess())
+            using(SqlDataAccess sql = new SqlDataAccess(_config))
             {
                 try
                 {
@@ -97,7 +105,7 @@ namespace ROsDataManager.Library.DataAccess
 
         public List<SaleReportModel> GetSalesReport()
         {
-            SqlDataAccess sql = new SqlDataAccess();
+            SqlDataAccess sql = new SqlDataAccess(_config);
             var output = sql.LoadData<SaleReportModel, dynamic>("dbo.spSaleSaleReport", new { }, "ROsData");
             return output;
         }

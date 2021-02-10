@@ -1,4 +1,5 @@
 ﻿using Dapper;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -15,10 +16,21 @@ namespace ROsDataManager.Library.Internal.DataAccess
 {
     internal class SqlDataAccess : IDisposable
     {
+        private IDbConnection _connection;
+        private IDbTransaction _transaction;
+        private bool isClosed = false;
+        private readonly IConfiguration _config;
+
+
+        public SqlDataAccess(IConfiguration config)
+        {
+            _config = config;
+        }
+
 
         public string GetConnectionString(string name)
         {
-            return ConfigurationManager.ConnectionStrings[name].ConnectionString;
+            return _config.GetConnectionString(name);
         }
 
 
@@ -59,9 +71,6 @@ namespace ROsDataManager.Library.Internal.DataAccess
         /// Save load data with transactions - use only when necessary.
         /// </summary>
 
-        private IDbConnection _connection;
-        private IDbTransaction _transaction;
-        private bool isClosed = false;
 
         public void StartTranaction(string connectionStringName)
         {
