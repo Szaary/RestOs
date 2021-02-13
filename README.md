@@ -15,11 +15,13 @@ Used Technologies:
 - Dependency Injection and containers
 - Wpf
 - MVVM - (Model-View-ViewModel)
-. Git
+- Git
 - Design Patterns
 - Async
 - WebApi
 - Data Validation and Authentication
+- .Net Framework 4
+- .Net Core
 
 Nugget Packages:
 - Dapper
