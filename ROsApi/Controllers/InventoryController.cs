@@ -23,6 +23,7 @@ namespace ROsApi.Controllers
             _config = config;
         }
         [Authorize(Roles = "Manager,Admin")]
+        [HttpGet]
         public List<InventoryModel> Get()
         {
             InventoryData data = new InventoryData(_config);
@@ -31,6 +32,7 @@ namespace ROsApi.Controllers
 
         //[Authorize(Roles = "Manager")] // if you need to have both roles(not one of it), to do something use another authorize
         [Authorize(Roles = "Admin")]
+        [HttpPost]
         public void Post(InventoryModel item)
         {
             InventoryData data = new InventoryData(_config);

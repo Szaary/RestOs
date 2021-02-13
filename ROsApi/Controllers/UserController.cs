@@ -44,7 +44,7 @@ namespace ROsApi.Controllers
         // How to get all users, roles from Default api database
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("api/User/Admin/GetAllUsers")]
+        [Route("Admin/GetAllUsers")]
         public List<ApplicationUserModel> GetAllUsers()
         {
             List<ApplicationUserModel> output = new List<ApplicationUserModel>();
@@ -73,7 +73,7 @@ namespace ROsApi.Controllers
         // Returning Dictionary - smart  : )
         [Authorize(Roles = "Admin")]
         [HttpGet]
-        [Route("api/User/Admin/GetAllRoles")]
+        [Route("Admin/GetAllRoles")]
         public Dictionary<string, string> GetAllRoles()
         {
                 var roles = _context.Roles.ToDictionary(x => x.Id, x => x.Name);
@@ -82,7 +82,7 @@ namespace ROsApi.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Route("api/User/Admin/AddRole")]
+        [Route("Admin/AddRole")]
         public async Task AddRole(UserRolePairModel pairing) // Created role model to not expose user id (and role) 
         {
             var user = await _userManager.FindByIdAsync(pairing.UserId);
@@ -91,7 +91,7 @@ namespace ROsApi.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        [Route("api/User/Admin/RemoveARole")]
+        [Route("Admin/RemoveARole")]
         public async Task RemoveRole(UserRolePairModel pairing)
         {
             var user = await _userManager.FindByIdAsync(pairing.UserId);
