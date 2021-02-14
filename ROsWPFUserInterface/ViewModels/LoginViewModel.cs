@@ -95,7 +95,7 @@ namespace ROsWPFUserInterface.ViewModels
 				
 				await _apiHelper.GetLoggedInUserInfo(result.Access_Token);
 
-				_events.PublishOnUIThread(new LogOnEvent());
+				await _events.PublishOnUIThreadAsync(new LogOnEvent());
 
 			}
 			catch (Exception ex)

@@ -56,14 +56,14 @@ namespace ROsWPFUserInterface.ViewModels
 			if (ex.Message == "Unauthorized")
 				{
 					_status.UpdateMessage("Unauthorized Acccess", "You do not have permission to interact with the Sales Form");
-					_window.ShowDialog(_status, null, settings);
+					await _window.ShowDialogAsync(_status, null, settings);
 				}
 				else
 				{
 					_status.UpdateMessage("Fatal Exception", ex.Message);
-					_window.ShowDialog(_status, null, settings);
+					await _window.ShowDialogAsync(_status, null, settings);
 				}
-				TryClose();
+				TryCloseAsync();
 			}
 		}
 

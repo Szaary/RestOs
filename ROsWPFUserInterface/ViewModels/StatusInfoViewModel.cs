@@ -22,7 +22,7 @@ namespace ROsWPFUserInterface.ViewModels
 
         public void Close()
         {
-            TryClose();
+            TryCloseAsync();
             //  this.Close(); - close entire application
         }
     }
