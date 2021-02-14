@@ -13,14 +13,12 @@ namespace ROsWPFUserInterface.ViewModels
     public class ShellViewModel : Conductor<object>, IHandle<LogOnEvent>
     {
         private IEventAggregator _events;
-        private SalesViewModel _salesViewModel;
         private ILoggedInUserModel _user;
         private IAPIHelper _apiHelper;
 
-        public ShellViewModel(IEventAggregator events, SalesViewModel salesViewModel, ILoggedInUserModel user, IAPIHelper apiHelper)
+        public ShellViewModel(IEventAggregator events, ILoggedInUserModel user, IAPIHelper apiHelper)
         {
             _events = events;
-            _salesViewModel = salesViewModel;
             _user = user;
             _apiHelper = apiHelper;
 
@@ -45,11 +43,6 @@ namespace ROsWPFUserInterface.ViewModels
             await ActivateItemAsync(IoC.Get<UserDisplayViewModel>());           
         }
 
-        public void Handle(LogOnEvent message)
-        {
-
-        }
-
         public void ExitApplication()
         {
             TryCloseAsync();
@@ -67,7 +60,7 @@ namespace ROsWPFUserInterface.ViewModels
 
         public async Task HandleAsync(LogOnEvent message, CancellationToken cancellationToken)
         {
-            await ActivateItemAsync(_salesViewModel);
+            await ActivateItemAsync(IoC.Get<SalesViewModel>());
             NotifyOfPropertyChange(() => IsLoggedIn);
         }
     }
