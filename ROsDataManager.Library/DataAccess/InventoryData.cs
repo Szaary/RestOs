@@ -9,26 +9,24 @@ using System.Threading.Tasks;
 
 namespace ROsDataManager.Library.DataAccess
 {
-    public class InventoryData
+    public class InventoryData : IInventoryData
     {
-        private readonly IConfiguration _config;
+        private readonly ISqlDataAccess _sqlDataAccess;
 
-        public InventoryData(IConfiguration config)
+        public InventoryData(ISqlDataAccess sqlDataAccess)
         {
-            _config = config;
+            _sqlDataAccess = sqlDataAccess;
         }
         public List<InventoryModel> GetInventory()
         {
-            SqlDataAccess sql = new SqlDataAccess(_config);
-            var output = sql.LoadData<InventoryModel, dynamic>("dbo.spInventoryGetAll", new { }, "ROsData");
+            var output = _sqlDataAccess.LoadData<InventoryModel, dynamic>("dbo.spInventoryGetAll", new { }, "ROsData");
             return output;
         }
         public void SaveInventoryRecord(InventoryModel item)
         {
-            SqlDataAccess sql = new SqlDataAccess(_config);
-            sql.SaveData("dbo.spInventoryInsert", item, "ROsData");
+            _sqlDataAccess.SaveData("dbo.spInventoryInsert", item, "ROsData");
         }
-      
+
     }
 
 }

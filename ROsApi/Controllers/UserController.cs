@@ -23,21 +23,20 @@ namespace ROsApi.Controllers
     {
         private readonly ApplicationDbContext _context;
         private readonly UserManager<IdentityUser> _userManager;
-        private readonly IConfiguration _config;
+        private readonly IUserData _userData;
 
-        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IConfiguration config)
+        public UserController(ApplicationDbContext context, UserManager<IdentityUser> userManager, IUserData userData)
         {
             _context = context;
             _userManager = userManager;
-            _config = config;
+            _userData = userData;
         }
 
         [HttpGet]
         public UserModel GetById()
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            UserData data = new UserData(_config);
-            return data.GetUserById(userId).First();
+            return _userData.GetUserById(userId).First();
         }
 
 
@@ -66,11 +65,10 @@ namespace ROsApi.Controllers
 
             output.Add(u);
             }
-
-            
+            // Returning Dictionary
             return output;
         }
-        // Returning Dictionary - smart  : )
+
         [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("Admin/GetAllRoles")]

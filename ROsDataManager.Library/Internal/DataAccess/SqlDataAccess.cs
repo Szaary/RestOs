@@ -14,31 +14,21 @@ using System.Threading.Tasks;
 /// </summary>
 namespace ROsDataManager.Library.Internal.DataAccess
 {
-    internal class SqlDataAccess : IDisposable
+    public class SqlDataAccess : IDisposable, ISqlDataAccess
     {
         private IDbConnection _connection;
         private IDbTransaction _transaction;
         private bool isClosed = false;
         private readonly IConfiguration _config;
 
-
         public SqlDataAccess(IConfiguration config)
         {
             _config = config;
         }
-
-
         public string GetConnectionString(string name)
         {
             return _config.GetConnectionString(name);
         }
-
-
-
-        /// <summary>
-        /// Save/Load data without transactions.
-        /// </summary>
-
 
 
         public List<T> LoadData<T, U>(string storedProcedure, U parameters, string connectionStringName)
@@ -64,13 +54,6 @@ namespace ROsDataManager.Library.Internal.DataAccess
                      commandType: CommandType.StoredProcedure);               
             }
         }
-
-
-
-        /// <summary>
-        /// Save load data with transactions - use only when necessary.
-        /// </summary>
-
 
         public void StartTranaction(string connectionStringName)
         {
@@ -111,8 +94,6 @@ namespace ROsDataManager.Library.Internal.DataAccess
             _transaction = null;
             _connection = null;
         }
-
-
         /// Execute save/load in transaction
 
         public void SaveDataInTransaction<T>(string storedProcedure, T parameters)
